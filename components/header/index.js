@@ -30,10 +30,10 @@ const Header = ({ simple }) => {
       </Link>
       <Nav>
         <NavList>
-          {data.menu.map(category => (
-            <NavListItem key={category.path}>
-              <Link as={category.path} href="/catalog">
-                <a>{category.name}</a>
+          {data.menu.subtree.edges.map(({ node }) => (
+            <NavListItem key={node.path}>
+              <Link as={node.path} href="/catalog">
+                <a>{node.name}</a>
               </Link>
             </NavListItem>
           ))}
