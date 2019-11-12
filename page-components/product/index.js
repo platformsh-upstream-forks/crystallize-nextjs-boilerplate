@@ -170,7 +170,7 @@ const ProductPage = ({ product, defaultVariant }) => {
 };
 
 const ProductPageDataLoader = ({ data }) => {
-  const [product] = data.tree;
+  const product = data.catalogue;
   const defaultVariant = product.variants.find(v => v.isDefault);
 
   if (!defaultVariant) {

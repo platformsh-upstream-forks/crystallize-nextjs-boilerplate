@@ -9,7 +9,7 @@ import ShapeComponents from 'components/shape/components';
 export default class FolderPage extends React.PureComponent {
   render() {
     const { data } = this.props;
-    const [folder] = data.tree;
+    const folder = data.catalogue;
     const { children } = folder;
 
     const cells = children

@@ -28,12 +28,12 @@ export default function CatalogPage() {
   }
 
   // Nothing in Crystallize at this path. Show 404 page
-  if (!data.tree || !data.tree.length) {
+  if (!data.catalogue) {
     return <Error statusCode="404" />;
   }
 
-  const { tree } = data;
-  const { type } = tree[0];
+  const { catalogue } = data;
+  const { type } = catalogue;
 
   if (type === 'product') {
     return <ProductPage data={data} />;

@@ -5,7 +5,7 @@ import Layout from 'components/layout';
 import ShapeComponents from 'components/shape/components';
 
 const DocumentPage = ({ data }) => {
-  const [document] = data.tree;
+  const document = data.catalogue;
 
   return (
     <Layout title={document.name}>
