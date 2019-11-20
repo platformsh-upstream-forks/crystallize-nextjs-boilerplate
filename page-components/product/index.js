@@ -1,12 +1,11 @@
 /* eslint react/no-multi-comp: 0 */
 import React, { useState, useContext } from 'react';
-import { Grid } from '@crystallize/grid-renderer/react';
 import { LayoutContext } from '@crystallize/react-layout';
 import Img from '@crystallize/react-image';
 import { withRouter } from 'next/router';
 import isEqual from 'lodash/isEqual';
 
-import { H1, H2, H3, Button, screen, Outer } from 'ui';
+import { H1, H2, Button, screen, Outer } from 'ui';
 import CategoryItem from 'components/category-item';
 import { CurrencyValue } from 'components/currency-value';
 import { useBasket, getVariantVATprops } from 'components/basket';
@@ -25,7 +24,10 @@ import {
   ProductFooter,
   Summary,
   Description,
-  RelatedTopics
+  RelatedTopics,
+  TopicMap,
+  TopicTitle,
+  List
 } from './styles';
 
 const placeHolderImg = '/static/placeholder.png';
@@ -131,7 +133,7 @@ const ProductPage = ({ product, defaultVariant }) => {
 
       {!!topics.length && (
         <RelatedTopics>
-          <H2>Related Products</H2>
+          <H2>Related</H2>
 
           {topicResults.map(result => {
             if (result.fetching || result.error || !result.data) {
@@ -152,15 +154,14 @@ const ProductPage = ({ product, defaultVariant }) => {
             }
 
             return (
-              <>
-                <H3>{topic.name}</H3>
-                <Grid
-                  cells={cells}
-                  renderCellContent={cell => (
-                    <CategoryItem key={cell.item.id} data={cell.item} />
-                  )}
-                />
-              </>
+              <TopicMap>
+                <TopicTitle>{topic.name}</TopicTitle>
+                <List>
+                  {cells.map(cell => (
+                    <CategoryItem data={cell.item} key={cell.id} />
+                  ))}
+                </List>
+              </TopicMap>
             );
           })}
         </RelatedTopics>

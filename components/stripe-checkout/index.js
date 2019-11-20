@@ -1,10 +1,22 @@
 import React from 'react';
 import { CardElement, injectStripe } from 'react-stripe-elements';
+import styled from 'styled-components';
 import { Button, colors } from 'ui';
 import { CardElementWrapper, ErrorMessage } from './styles';
+import {
+  Input,
+  InputGroup,
+  Label
+} from '../../page-components/checkout/styles';
+
+const ShippingDetails = styled.div`
+  display: flex;
+`;
 
 class StripeCheckout extends React.Component {
   state = {
+    address: '',
+    postCode: '',
     cardElementStyle: null,
     error: null,
     processing: false
@@ -19,6 +31,8 @@ class StripeCheckout extends React.Component {
   async submit() {
     this.setState({ processing: true });
 
+    const { address, postCode } = this.state;
+
     const {
       clientSecret,
       items,
@@ -31,7 +45,13 @@ class StripeCheckout extends React.Component {
       clientSecret,
       {
         payment_method_data: {
-          billing_details: { name: `${firstName} ${lastName}` }
+          billing_details: {
+            name: `${firstName} ${lastName}`,
+            address: {
+              line1: address,
+              postal_code: postCode
+            }
+          }
         },
         receipt_email: email
       }
@@ -88,10 +108,40 @@ class StripeCheckout extends React.Component {
   }
 
   render() {
-    const { cardElementStyle, error, processing } = this.state;
+    const {
+      address,
+      cardElementStyle,
+      error,
+      postCode,
+      processing
+    } = this.state;
 
     return (
       <>
+        <ShippingDetails>
+          <InputGroup>
+            <Label for="address">Street Address</Label>
+            <Input
+              name="address"
+              type="text"
+              placeholder="Street address"
+              value={address}
+              onChange={e => this.setState({ address: e.target.value })}
+              required
+            />
+          </InputGroup>
+          <InputGroup>
+            <Label for="postCode">Postal Code</Label>
+            <Input
+              name="postCode"
+              type="text"
+              placeholder="Postal code"
+              value={postCode}
+              onChange={e => this.setState({ postCode: e.target.value })}
+              required
+            />
+          </InputGroup>
+        </ShippingDetails>
         <CardElementWrapper style={cardElementStyle}>
           <CardElement
             style={{

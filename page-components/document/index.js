@@ -1,8 +1,10 @@
 import React from 'react';
 
-import { Outer, Header, H1 } from 'ui';
+import { Outer, H1 } from 'ui';
 import Layout from 'components/layout';
 import ShapeComponents from 'components/shape/components';
+
+import { Document } from './styles';
 
 const DocumentPage = ({ data }) => {
   const document = data.catalogue;
@@ -10,14 +12,14 @@ const DocumentPage = ({ data }) => {
   return (
     <Layout title={document.name}>
       <Outer>
-        <Header>
+        <Document>
           <ShapeComponents
             components={document.components}
             overrides={{
               Title: H1
             }}
           />
-        </Header>
+        </Document>
       </Outer>
     </Layout>
   );

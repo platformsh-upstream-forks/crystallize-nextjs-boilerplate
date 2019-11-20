@@ -1,9 +1,24 @@
 import React from 'react';
 import Link from 'next/link';
+import ShapeComponents from 'components/shape/components';
 
 import { CurrencyValue } from 'components/currency-value';
-import { screen } from 'ui';
-import { Outer, ImageWrapper, Img, Footer, Price, imageSize } from './styles';
+
+import { screen, H3 } from 'ui';
+import {
+  Outer,
+  ProductOuter,
+  Inner,
+  ProductInner,
+  MicroFormat,
+  ImageWrapper,
+  Img,
+  ArticleImageWrapper,
+  ArticleImg,
+  ContentLine,
+  Price,
+  imageSize
+} from './styles';
 
 class CategoryItem extends React.Component {
   render() {
@@ -17,25 +32,26 @@ class CategoryItem extends React.Component {
 
     if (type === 'folder' || type === 'document') {
       const images = data.components.find(c => c.type === 'images');
+      const richText = data.components.find(c => c.type === 'richText');
       const image = images && images.content ? images.content.images[0] : null;
-
       return (
         <Link as={path} href="/catalog" passHref>
-          <Outer>
-            <ImageWrapper>
-              {image && (
-                <Img
-                  {...image}
-                  alt={name}
-                  sizes={`(min-width ${screen.md}px) ${imageSize.lg}, ${imageSize.xs}`}
-                />
-              )}
-            </ImageWrapper>
-            <Footer>
-              <div>
-                <span>{name}</span>
-              </div>
-            </Footer>
+          <Outer type={type}>
+            <Inner>
+              <MicroFormat>
+                <H3>{name}</H3>
+                <ShapeComponents components={[richText]} />
+              </MicroFormat>
+              <ArticleImageWrapper>
+                {image && (
+                  <ArticleImg
+                    {...image}
+                    alt={name}
+                    sizes={`(min-width ${screen.md}px) ${imageSize.lg}, ${imageSize.xs}`}
+                  />
+                )}
+              </ArticleImageWrapper>
+            </Inner>
           </Outer>
         </Link>
       );
@@ -47,23 +63,25 @@ class CategoryItem extends React.Component {
 
     return (
       <Link as={path} href="/catalog" passHref>
-        <Outer>
-          <ImageWrapper>
-            <Img
-              {...image}
-              alt={name}
-              sizes={`(min-width ${screen.md}px) ${imageSize.lg}, ${imageSize.xs}`}
-            />
-          </ImageWrapper>
-          <Footer>
-            <div>
+        <ProductOuter>
+          <ProductInner>
+            <ContentLine>
               <span>{name}</span>
+            </ContentLine>
+            <ImageWrapper>
+              <Img
+                {...image}
+                alt={name}
+                sizes={`(min-width ${screen.md}px) ${imageSize.lg}, ${imageSize.xs}`}
+              />
+            </ImageWrapper>
+            <ContentLine right>
               <Price>
                 <CurrencyValue value={price} />
               </Price>
-            </div>
-          </Footer>
-        </Outer>
+            </ContentLine>
+          </ProductInner>
+        </ProductOuter>
       </Link>
     );
   }
