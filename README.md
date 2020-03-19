@@ -83,14 +83,9 @@ UI related components live her. Color variables and simple shared components
 ## Deploying Your Project
 
 There are multiple alternatives for deployments, however for the easiest hosting
-of a Node application, one option is [ZEIT Now][20].
+of a Node application.
 
-### Deploying with ZEIT Now
 
-- Register a ZEIT Now account
-- Run `npm install --global now`
-- Navigate to your project folder
-- Run `now`
 
 [0]: https://img.shields.io/badge/react-latest-44cc11.svg?style=flat-square
 [1]: https://github.com/facebook/react
@@ -114,6 +109,4 @@ of a Node application, one option is [ZEIT Now][20].
 [16]:
   https://snowball.digital/blog/content-strategy-for-exponential-growth-marketing
 [17]: https://github.com/crystallizeapi/crystallize-cli
-[18]: https://zeit.co/docs/v2/serverless-functions/introduction
-[19]: https://zeit.co/guides/deploying-nextjs-with-now/
-[20]: https://zeit.co/now
+
